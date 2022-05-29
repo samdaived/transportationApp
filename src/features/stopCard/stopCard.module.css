@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  border: 3px #7badd7 solid;
+  border-radius: 10px;
+  padding: 5px;
+  -webkit-box-shadow: 5px 9px 31px -1px rgba(0, 0, 0, 0.38);
+  box-shadow: 5px 9px 31px -1px rgba(0, 0, 0, 0.38);
+}
+
+.details {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.icon {
+  max-height: 50px;
+  margin: 0px 3px;
+}
+.refresh {
+  max-height: 30px;
+  position: absolute;
+  right: 10px;
+  top: 10;
+  cursor: pointer;
+}
+.newDepatruture div {
+  border: gray 1px solid;
+  padding: 4px;
+  margin: 1px;
+  text-align: left;
+  border-radius: 5px;
+}

@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { flattenObjAndObjectInArray } from '../utils/flatternObject';
 
-export const FetchData = async (
-  query: string
-): Promise<Partial<any> | null> => {
+export const FetchData = async (query: string): Promise<any | null> => {
   try {
     const res = await axios.post(process.env.REACT_APP_API_URL || '', {
       query,
@@ -15,9 +14,10 @@ export const FetchData = async (
       toast.error('error');
       return null;
     }
-    return resData;
+    const data = flattenObjAndObjectInArray(resData, {});
+    return data;
   } catch (er) {
-    toast.error('error');
+    toast.error('faild to fetch the ');
     return null;
   }
 };

@@ -1,18 +1,15 @@
-import { AnyAction, CombinedState, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
+import { initialStopState, StopReducer } from './stop/reducer';
+import { StopState } from './stop/state';
 
-export interface RootState {}
+export interface RootState {
+  stop: StopState;
+}
 
-export const initialRootState = {};
-
-export const appReducer = combineReducers<RootState>({});
-
-export const rootReducer = (
-  state: CombinedState<RootState> | undefined,
-  action: AnyAction
-) => {
-  // when a logout action is dispatched it will reset redux state
-  if (action.type === 'LOGOUT_USER') {
-    return appReducer(undefined, action);
-  }
-  return appReducer(state, action);
+export const initialRootState: RootState = {
+  stop: initialStopState,
 };
+
+export const rootReducer = combineReducers<RootState>({
+  stop: StopReducer,
+});
