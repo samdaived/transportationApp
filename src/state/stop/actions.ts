@@ -1,19 +1,16 @@
-import { Action } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { Action, AnyAction } from 'redux';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { store } from '../..';
 import {
   NEXT_DEPARTURES,
   REAL_TIME_DEPARTURE,
   SERVICE_DAY,
 } from '../../constants/stopKeys';
-import {
-  initialStop,
-  IStopModel,
-  NextDepartureRecived,
-} from '../../models/stop';
-import { FetchData } from '../../services/appService';
+import { initialStop, IStopModel } from '../../models/stop';
+import { FetchStopDetails } from '../../services/appService';
 import { allQueries } from '../../services/queries';
 import { timeToString } from '../../utils/timeToString';
-import { RootState } from '../rootReducer';
+import { rootReducer, RootState } from '../rootReducer';
 
 export enum ActionTypes {
   setStop = 'SET_STOP',
@@ -24,13 +21,14 @@ export interface SetStopAction extends Action {
   payload: IStopModel;
 }
 
-export type StopActionTypes = SetStopAction;
-
-type StopThunk<ReturnType = void> = ThunkAction<
+export type AppDispatch = typeof store.dispatch;
+export type ReduxState = ReturnType<typeof rootReducer>;
+export type StopDispatch = ThunkDispatch<ReduxState, any, AnyAction>;
+export type StopThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  RootState,
+  ReduxState,
   unknown,
-  StopActionTypes
+  AnyAction
 >;
 
 export const setStopInitial = () => ({
@@ -40,21 +38,20 @@ export const setStopInitial = () => ({
 
 export const getSetStopDetail =
   (id?: string | null): StopThunk =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     if (!id) return;
-    const stop = await FetchData(allQueries.stopQuery(id));
-    console.log(stop);
+    const stop = await FetchStopDetails(
+      allQueries.stopQuery(id, getState().stop.currentStop)
+    );
     if (!stop) return;
     if (stop?.[NEXT_DEPARTURES]?.length) {
-      stop[NEXT_DEPARTURES] = stop[NEXT_DEPARTURES].map(
-        (el: NextDepartureRecived) => ({
-          ...el,
-          [REAL_TIME_DEPARTURE]: timeToString(
-            el[SERVICE_DAY],
-            el[REAL_TIME_DEPARTURE]
-          ),
-        })
-      );
+      stop[NEXT_DEPARTURES] = stop[NEXT_DEPARTURES].map((el) => ({
+        ...el,
+        [REAL_TIME_DEPARTURE]: timeToString(
+          el[SERVICE_DAY],
+          el[REAL_TIME_DEPARTURE]
+        ),
+      }));
     }
     return dispatch({
       type: ActionTypes.setStop,

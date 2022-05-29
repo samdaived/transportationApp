@@ -6,7 +6,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import configureStore from './state/store';
 
-const store = configureStore();
+export const store = configureStore();
 
 const container = document.getElementById('root');
 const root = createRoot(container!);

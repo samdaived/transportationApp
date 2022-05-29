@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Map from '../../components/map/map';
 import { transportationImages } from '../../constants/images';
 import {
@@ -19,16 +19,22 @@ import { RootState } from '../../state/rootReducer';
 import refresh from '../../assets/images/refresh-solid.svg';
 
 import styles from './stopCard.module.css';
+import { getSetStopDetail, StopDispatch } from '../../state/stop/actions';
 
 const StopCard: React.FC = () => {
   const { currentStop } = useSelector((state: RootState) => state.stop);
+  const dispatch = useDispatch<StopDispatch>();
 
   return (
     <>
-      {console.log(currentStop)}
-      {currentStop?.[STOP_ID] && currentStop?.[VEHICLE_MODE] ? (
+      {currentStop?.[STOP_ID] ? (
         <div className={styles.container}>
-          <img src={refresh} className={styles.refresh} alt={'refresh'}></img>
+          <img
+            src={refresh}
+            className={styles.refresh}
+            onClick={() => dispatch(getSetStopDetail(currentStop?.[STOP_ID]))}
+            alt={'refresh'}
+          ></img>
           <div className={styles.map}>
             <Map lat={currentStop?.[LATITUDE]} lon={currentStop?.[LONGITUDE]} />
           </div>

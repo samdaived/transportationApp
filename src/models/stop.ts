@@ -21,29 +21,27 @@ export interface NextDeparture {
   [REAL_TIME_DEPARTURE]: string;
   [HEAD_SIGN]: string;
   [ROUTE_SHORT_NAME]: string;
-}
-export interface NextDepartureRecived extends NextDeparture {
   [SERVICE_DAY]: number;
 }
 
 export interface IStopModel {
-  [NAME]: string | null;
-  [VEHICLE_MODE]: VehicleMode | null;
-  [LATITUDE]: number | null;
-  [LONGITUDE]: number | null;
+  [NAME]?: string;
+  [VEHICLE_MODE]?: VehicleMode;
+  [LATITUDE]?: number;
+  [LONGITUDE]?: number;
   [DESCRIPTION]: string;
   [ZONE_ID]: string;
-  [STOP_ID]: string | null;
+  [STOP_ID]?: string;
   [NEXT_DEPARTURES]: NextDeparture[];
 }
 
 export const initialStop: IStopModel = {
-  [STOP_ID]: null,
-  [NAME]: null,
-  [VEHICLE_MODE]: null,
-  [LATITUDE]: null,
-  [LONGITUDE]: null,
   [NEXT_DEPARTURES]: [],
   [DESCRIPTION]: '',
   [ZONE_ID]: '',
 };
+
+export type IStopOption = Pick<
+  IStopModel,
+  'name' | 'gtfsId' | 'vehicleMode' | 'desc'
+>;

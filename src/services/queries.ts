@@ -12,6 +12,8 @@ import {
   VEHICLE_MODE,
   ZONE_ID,
 } from '../constants/stopKeys';
+import { IStopModel } from '../models/stop';
+import { isValueNeeded } from '../utils/fetchOrNot';
 
 export const allQueries = {
   searchQuery: (name: string) => `{
@@ -22,15 +24,15 @@ export const allQueries = {
       ${DESCRIPTION}
     }
   }`,
-  stopQuery: (id: string) => `{
+  stopQuery: (id: string, state: IStopModel) => `{
     stop(id: "${id}") {
-      ${NAME}
-      ${VEHICLE_MODE}
-      ${LATITUDE}
-      ${LONGITUDE}
-      ${DESCRIPTION}
-      ${STOP_ID}
-      ${ZONE_ID} 
+      ${isValueNeeded(state, NAME, id, STOP_ID)}
+      ${isValueNeeded(state, VEHICLE_MODE, id, STOP_ID)}
+      ${isValueNeeded(state, LATITUDE, id, STOP_ID)}
+      ${isValueNeeded(state, LONGITUDE, id, STOP_ID)}
+      ${isValueNeeded(state, DESCRIPTION, id, STOP_ID)}
+      ${isValueNeeded(state, STOP_ID, id, STOP_ID)}
+      ${isValueNeeded(state, ZONE_ID, id, STOP_ID)}
       ${NEXT_DEPARTURES} {
         ${REAL_TIME_DEPARTURE}
         ${SERVICE_DAY}

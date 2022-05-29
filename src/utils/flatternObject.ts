@@ -1,7 +1,4 @@
 export const flattenObjAndObjectInArray = (ob: any = {}, result: any = {}) => {
-  if (typeof ob !== 'object') {
-    return;
-  }
   for (const i in ob) {
     if (typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
       flattenObjAndObjectInArray(ob[i], result);

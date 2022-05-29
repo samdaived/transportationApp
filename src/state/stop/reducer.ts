@@ -1,5 +1,5 @@
 import { initialStop } from '../../models/stop';
-import { ActionTypes, StopActionTypes } from './actions';
+import { ActionTypes, SetStopAction } from './actions';
 import { StopState } from './state';
 
 export const initialStopState: StopState = {
@@ -8,13 +8,13 @@ export const initialStopState: StopState = {
 
 export const StopReducer = (
   state: StopState = initialStopState,
-  action: StopActionTypes
+  action: SetStopAction
 ): StopState => {
   switch (action.type) {
     case ActionTypes.setStop:
       return {
         ...state,
-        currentStop: action.payload,
+        currentStop: { ...state.currentStop, ...action.payload },
       };
     default:
       return state;
