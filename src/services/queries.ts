@@ -13,7 +13,7 @@ import {
   ZONE_ID,
 } from '../constants/stopKeys';
 import { IStopModel } from '../models/stop';
-import { isValueNeeded } from '../utils/fetchOrNot';
+import { isValueNeeded } from '../utils/isValueNeeded';
 
 export const allQueries = {
   searchQuery: (name: string) => `{

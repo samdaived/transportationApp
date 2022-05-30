@@ -39,6 +39,11 @@ export const initialStop: IStopModel = {
   [NEXT_DEPARTURES]: [],
   [DESCRIPTION]: '',
   [ZONE_ID]: '',
+  [NAME]: '',
+  [VEHICLE_MODE]: undefined,
+  [LATITUDE]: undefined,
+  [LONGITUDE]: undefined,
+  [STOP_ID]: '',
 };
 
 export type IStopOption = Pick<

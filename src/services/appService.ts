@@ -18,7 +18,7 @@ export const FetchStopsData = async (
     }
     return res?.data?.data?.stops;
   } catch (er) {
-    toast.error('faild to fetch the ');
+    toast.error('faild to fetch');
     return null;
   }
 };
@@ -37,7 +37,7 @@ export const FetchStopDetails = async (
     }
     return flattenObjAndObjectInArray(res?.data?.data.stop, {});
   } catch (er) {
-    toast.error('faild to fetch the ');
+    toast.error('faild to fetch');
     return null;
   }
 };

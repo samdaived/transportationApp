@@ -16,6 +16,10 @@
   flex-direction: column;
   align-items: flex-start;
 }
+.details h3 {
+  padding: 0;
+  margin: 10px;
+}
 
 .icon {
   max-height: 50px;

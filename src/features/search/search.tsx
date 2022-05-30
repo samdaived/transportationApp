@@ -31,7 +31,7 @@ const Search: React.FC = () => {
       }}
       getOptionLabel={(v) => chooseValue(v, NAME)}
       getOptionValue={(v) => chooseValue(v, STOP_ID)}
-      value={currentStop.gtfsId ? currentStop : null}
+      value={currentStop?.[STOP_ID] ? currentStop : null}
       components={{
         DropdownIndicator: () => null,
         IndicatorSeparator: () => null,

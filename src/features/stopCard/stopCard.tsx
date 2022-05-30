@@ -45,9 +45,9 @@ const StopCard: React.FC = () => {
               alt={currentStop?.[VEHICLE_MODE] || ''}
             ></img>
             <h3>{currentStop?.[NAME]}</h3>
-            <p>
+            <div>
               {currentStop?.[DESCRIPTION]}, Zone: {currentStop?.[ZONE_ID]}
-            </p>
+            </div>
             <div className={styles.newDepatruture}>
               {currentStop?.[NEXT_DEPARTURES].map((el, indx) => (
                 <div key={indx}>

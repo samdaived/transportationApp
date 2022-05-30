@@ -44,6 +44,8 @@ export const getSetStopDetail =
       allQueries.stopQuery(id, getState().stop.currentStop)
     );
     if (!stop) return;
+
+    // change time to string local time
     if (stop?.[NEXT_DEPARTURES]?.length) {
       stop[NEXT_DEPARTURES] = stop[NEXT_DEPARTURES].map((el) => ({
         ...el,
